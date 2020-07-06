@@ -9,7 +9,12 @@ import com.badlogic.gdx.ApplicationListener;
  */
 public abstract class KGDXApplication implements ApplicationListener {
 
+	public final String appName;
 	private float maxRenderDelta;
+
+	public KGDXApplication(String appName) {
+		this.appName = appName;
+	}
 
 	@Override
 	public final void create() {

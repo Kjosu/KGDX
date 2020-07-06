@@ -1,12 +1,9 @@
 package de.kjosu.kgdx;
 
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.backends.lwjgl3.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.GL30;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +26,7 @@ public class KGDX {
 	public static GL30 gl30;
 
 	public static KGDXApplication main;
+	public static KGDXLogger logger;
 	public static InputMultiplexer inputMultiplexer;
 
 	private static float glClearRed, glClearGreen, glClearBlue, glClearAlpha;
@@ -53,6 +51,8 @@ public class KGDX {
 		gl20 = Gdx.gl20;
 		gl30 = Gdx.gl30;
 
+		app.setApplicationLogger(logger = new KGDXLogger());
+		app.setLogLevel(Lwjgl3Application.LOG_DEBUG);
 		inputMultiplexer = new InputMultiplexer();
 
 		setGlClearColor(0f, 0f, 0f, 1f);
@@ -80,6 +80,22 @@ public class KGDX {
 			nextScreen = screens.get(screenClass);
 		}
 
+		handleScreenSwitch(nextScreen);
+	}
+
+	public static void switchScreen(KGDXScreen screen, boolean saveToCache) {
+		if (screen == null) {
+			throw new IllegalArgumentException("KGDXScreen instance can't be null");
+		}
+
+		if (saveToCache) {
+			screens.put(screen.getClass(), screen);
+		}
+
+		handleScreenSwitch(screen);
+	}
+
+	private static void handleScreenSwitch(KGDXScreen nextScreen) {
 		if (activeScreen != null) {
 			inputMultiplexer.removeProcessor(activeScreen);
 			activeScreen.hide();
