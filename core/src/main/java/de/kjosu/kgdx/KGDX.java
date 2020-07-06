@@ -20,6 +20,7 @@ public class KGDX {
 	public static Lwjgl3Files files;
 	public static Lwjgl3Net net;
 	public static Lwjgl3Clipboard clipboard;
+	public static Lwjgl3Preferences preferences;
 
 	public static GL20 gl;
 	public static GL20 gl20;
@@ -46,6 +47,7 @@ public class KGDX {
 		files = (Lwjgl3Files) Gdx.files;
 		net = (Lwjgl3Net) Gdx.net;
 		clipboard = (Lwjgl3Clipboard) app.getClipboard();
+		preferences = (Lwjgl3Preferences) app.getPreferences("app");
 
 		gl = Gdx.gl;
 		gl20 = Gdx.gl20;
