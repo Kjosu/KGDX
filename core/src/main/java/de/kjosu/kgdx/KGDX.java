@@ -10,27 +10,105 @@ import java.util.Map;
 
 public class KGDX {
 
+	/**
+	 * Map containing all cached screens mapped to its class.<br/>
+	 * Used by {@link KGDX#switchScreen(KGDXScreen, boolean)} and {@link KGDX#switchScreen(Class, boolean)}.
+	 */
 	private static final Map<Class<? extends KGDXScreen>, KGDXScreen> screens = new HashMap<>();
+
+	/**
+	 * Instance of the currently active/rendered screen.
+	 */
 	static KGDXScreen activeScreen;
 
+	/**
+	 * Reference to the current {@link Lwjgl3Application} instance.
+	 * @see Gdx#app
+	 */
 	public static Lwjgl3Application app;
+	/**
+	 * Reference to the applications {@link Lwjgl3Graphics} instance.
+	 * @see Gdx#graphics
+	 */
 	public static Lwjgl3Graphics graphics;
+	/**
+	 * Reference to the applications {@link Audio} instance.
+	 * @see Gdx#audio
+	 */
 	public static Audio audio;
+	/**
+	 * Reference to the applications {@link Lwjgl3Input} instance.
+	 * @see Gdx#input
+	 */
 	public static Lwjgl3Input input;
+	/**
+	 * Reference to the applications {@link Lwjgl3Files} instance.
+	 * @see Gdx#files
+	 */
 	public static Lwjgl3Files files;
+	/**
+	 * Reference to the applications {@link Lwjgl3Net} instance.
+	 * @see Gdx#net
+	 */
 	public static Lwjgl3Net net;
+	/**
+	 * Reference to the applications {@link Lwjgl3Clipboard} instance.
+	 */
 	public static Lwjgl3Clipboard clipboard;
+	/**
+	 * Just a global {@link Lwjgl3Preferences} instance.<br/>
+	 * <br/>
+	 * Use to your heart's desire.
+	 */
 	public static Lwjgl3Preferences preferences;
 
+	/**
+	 * @see Gdx#gl
+	 */
 	public static GL20 gl;
+	/**
+	 * @see Gdx#gl20
+	 */
 	public static GL20 gl20;
+	/**
+	 * @see Gdx#gl30
+	 */
 	public static GL30 gl30;
 
+	/**
+	 * Reference to the main {@link KGDXApplication} instance.
+	 */
 	public static KGDXApplication main;
+	/**
+	 * Just a global {@link KGDXLogger} instance.<br/>
+	 * Also used by the {@link Lwjgl3Application}'s log methods.
+	 *
+	 * @see Lwjgl3Application#setApplicationLogger(ApplicationLogger)
+	 * @see Lwjgl3Application#log(String, String, Throwable)
+	 * @see Lwjgl3Application#error(String, String, Throwable)
+	 * @see Lwjgl3Application#debug(String, String, Throwable)
+	 */
 	public static KGDXLogger logger;
+	/**
+	 * Just a global {@link InputMultiplexer} instance.<br/>
+	 * When switching screens, the old screen is automatically replaced with the new screen as input processor.<br/>
+	 * <br/>
+	 * Use to your heart's desire.
+	 */
 	public static InputMultiplexer inputMultiplexer;
 
+	/**
+	 * Color variables used for screen clearing.
+	 *
+	 * @see GL20#glClearColor(float, float, float, float)
+	 * @see GL20#glClear(int)
+	 */
 	private static float glClearRed, glClearGreen, glClearBlue, glClearAlpha;
+	/**
+	 * Mask used for screen clearing.
+	 *
+	 * @see GL20#glClear(int)
+	 */
 	private static int glClearMask;
 
 	private KGDX() {
@@ -65,6 +143,16 @@ public class KGDX {
 		}
 	}
 
+	/**
+	 * Creates a new instance or loads a cached version of the given screens class.<br/>
+	 * If no cached instance was found a new one will be created.<br/>
+	 * Whenever a new screen instance is created by this method it will automatically overwrite the currently cached screen with the same class.<br/>
+	 *
+	 * @exception
+	 *
+	 * @param screenClass class of the screen that should be changed to
+	 * @param loadFromCache if true load a screen from cache. if false or no screen is cached, create a new instance
+	 */
 	public static void switchScreen(Class<? extends KGDXScreen> screenClass, boolean loadFromCache) {
 		if (screenClass == null) {
 			throw new IllegalArgumentException("Screen class can't be null");
@@ -76,7 +164,8 @@ public class KGDX {
 				nextScreen = screenClass.getConstructor().newInstance();
 				screens.put(screenClass, nextScreen);
 			} catch (ReflectiveOperationException e) {
-				throw new RuntimeException(String.format("Failed creating screen: %s", screenClass), e);
+				logger.error(KGDX.class.getSimpleName(), String.format("Failed creating screen: %s", screenClass), e);
+				return;
 			}
 		} else {
 			nextScreen = screens.get(screenClass);
@@ -85,9 +174,13 @@ public class KGDX {
 		handleScreenSwitch(nextScreen);
 	}
 
+	/**
+	 * @param screen the screen that should be changed to
+	 * @param saveToCache if true the screen instance will be saved to the cache. if false not
+	 */
 	public static void switchScreen(KGDXScreen screen, boolean saveToCache) {
 		if (screen == null) {
-			throw new IllegalArgumentException("KGDXScreen instance can't be null");
+			throw new IllegalArgumentException("Screen instance can't be null");
 		}
 
 		if (saveToCache) {
@@ -124,14 +217,12 @@ public class KGDX {
 		glClearAlpha = a;
 	}
 
-	public static KGDX setGlClearMask(int mask) {
+	public static void setGlClearMask(int mask) {
 		glClearMask = mask;
-		return null;
 	}
 
-	public static KGDX addGlClearMask(int mask) {
+	public static void addGlClearMask(int mask) {
 		glClearMask |= mask;
-		return null;
 	}
 
 	static void dispose() {

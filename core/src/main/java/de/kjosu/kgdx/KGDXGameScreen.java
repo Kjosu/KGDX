@@ -71,6 +71,8 @@ public abstract class KGDXGameScreen extends KGDXScreen {
 		}
 	}
 
+	public abstract void show();
+
 	public abstract void fixedUpdate(float timeStep);
 
 	public abstract void fixedRender();
