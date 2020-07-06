@@ -20,8 +20,8 @@ public abstract class KGDXGameScreen extends KGDXScreen {
 	private int currentUpdate;
 	private int currentFrame;
 
-	private SpriteBatch batch = new SpriteBatch();
-	private BitmapFont font = new BitmapFont();
+	private final SpriteBatch batch = new SpriteBatch();
+	private final BitmapFont font = new BitmapFont();
 
 	public KGDXGameScreen() {
 		setMaxUpdatesPerSecond(20);

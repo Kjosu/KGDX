@@ -13,7 +13,7 @@ public abstract class KGDXApplication implements ApplicationListener {
 
 	@Override
 	public final void create() {
-		KGDX.init();
+		KGDX.init(this);
 
 		setMaxRenderDelta(0.25f);
 

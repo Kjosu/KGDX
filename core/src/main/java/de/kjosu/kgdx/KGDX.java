@@ -28,9 +28,8 @@ public class KGDX {
 	public static GL20 gl20;
 	public static GL30 gl30;
 
-	public static SpriteBatch batch;
-	public static ShapeRenderer shape;
-	public static AssetManager assets;
+	public static KGDXApplication main;
+	public static InputMultiplexer inputMultiplexer;
 
 	private static float glClearRed, glClearGreen, glClearBlue, glClearAlpha;
 	private static int glClearMask;
@@ -39,7 +38,9 @@ public class KGDX {
 
 	}
 
-	static void init() {
+	static void init(KGDXApplication main) {
+		KGDX.main = main;
+
 		app = (Lwjgl3Application) Gdx.app;
 		graphics = (Lwjgl3Graphics) Gdx.graphics;
 		audio = Gdx.audio;
@@ -52,9 +53,7 @@ public class KGDX {
 		gl20 = Gdx.gl20;
 		gl30 = Gdx.gl30;
 
-		batch = new SpriteBatch();
-		shape = new ShapeRenderer();
-		assets = new AssetManager();
+		inputMultiplexer = new InputMultiplexer();
 
 		setGlClearColor(0f, 0f, 0f, 1f);
 		setGlClearMask(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
@@ -75,15 +74,20 @@ public class KGDX {
 				nextScreen = screenClass.getConstructor().newInstance();
 				screens.put(screenClass, nextScreen);
 			} catch (ReflectiveOperationException e) {
-				throw new RuntimeException(String.format("Failed creating screen: ", screenClass));
+				throw new RuntimeException(String.format("Failed creating screen: %s", screenClass), e);
 			}
 		} else {
 			nextScreen = screens.get(screenClass);
 		}
 
-		if (activeScreen != null) activeScreen.hide();
+		if (activeScreen != null) {
+			inputMultiplexer.removeProcessor(activeScreen);
+			activeScreen.hide();
+		}
+
 		activeScreen = nextScreen;
 		activeScreen.show();
+		inputMultiplexer.addProcessor(activeScreen);
 	}
 
 	public static KGDXScreen getActiveScreen() {
