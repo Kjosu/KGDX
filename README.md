@@ -33,7 +33,7 @@ KGDX.setGlClearColor(float r, float g, float b, float a)
 KGDX.setGlClearMask(int mask)
 KGDX.addGlClearMask(int mask)
 
-KGDX.glClear() // Automatically called before every render call
+KGDX.glClear() // Needs to be called manually in render() or fixedRender() method
 ```
 ## Switching between screens
 ```java
