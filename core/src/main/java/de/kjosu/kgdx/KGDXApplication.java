@@ -34,8 +34,6 @@ public abstract class KGDXApplication implements ApplicationListener {
 
 	@Override
 	public void render() {
-		KGDX.glClear();
-
 		float delta = KGDX.graphics.getRawDeltaTime();
 
 		if (maxRenderDelta > 0) {
