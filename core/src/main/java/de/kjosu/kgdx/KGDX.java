@@ -133,7 +133,7 @@ public class KGDX {
 
 		app.setApplicationLogger(logger = new KGDXLogger());
 		app.setLogLevel(Lwjgl3Application.LOG_DEBUG);
-		inputMultiplexer = new InputMultiplexer();
+		input.setInputProcessor(inputMultiplexer = new InputMultiplexer());
 
 		setGlClearColor(0f, 0f, 0f, 1f);
 		setGlClearMask(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
