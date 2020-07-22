@@ -1,7 +1,12 @@
 package de.kjosu.kgdx;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public abstract class KGDXGameScreen extends KGDXScreen {
 
@@ -20,7 +25,7 @@ public abstract class KGDXGameScreen extends KGDXScreen {
 	private int currentUpdate;
 	private int currentFrame;
 
-	private final SpriteBatch batch = new SpriteBatch();
+	private final Viewport viewport = new ScreenViewport();
 	private final BitmapFont font = new BitmapFont();
 
 	public KGDXGameScreen() {
@@ -77,9 +82,17 @@ public abstract class KGDXGameScreen extends KGDXScreen {
 
 	public abstract void fixedRender();
 
-	public void drawDebugInfo() {
+	@Override
+	public void resize(int width, int height) {
+		viewport.update(width, height, true);
+	}
+
+	public void drawDebugInfo(SpriteBatch batch) {
+		viewport.getCamera().update();
+		batch.setProjectionMatrix(viewport.getCamera().combined);
+
 		batch.begin();
-		font.draw(batch, String.format("UPS: %s\r\nFPS: %s", updatesPerSecond, framesPerSecond), 10, KGDX.graphics.getHeight() - 10);
+		font.draw(batch, String.format("UPS: %s\r\nFPS: %s", updatesPerSecond, framesPerSecond), 10, Gdx.graphics.getHeight() - 10);
 		batch.end();
 	}
 
