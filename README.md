@@ -26,7 +26,7 @@ KGDX.inputMultiplexer // InputMultiplexer (global input multiplexer)
   default-color: 0, 0, 0, 1
   default-mask: GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT
   
-  if coverage sampling is active GL_COVERAGE_BUFFER_BIT_NV is also added
+  if coverage sampling is active GL_COVERAGE_BUFFER_BIT_NV is also added by default
 **/
 
 KGDX.setGlClearColor(float r, float g, float b, float a)
@@ -53,32 +53,6 @@ public void MyMainApplication extends KGDXApplication {
     KGDX.switchScreen(MyEntryScreen.class, false);
     // or else
     KGDX.switchScreen(new MyEntryScreen("parameter"), true);
-  }
-}
-```
-## KGDX Game Screen
-```java
-public class GameScreen extends KGDXGameScreen {
-
-  @Override
-  public void show() {
-    setMaxUpdatesPerSecond(20);
-    setMaxFramesPerSecond(60);
-  }
-
-  @Override
-  public void fixedUpdate(float timeStep) {
-
-  }
-
-  @Override
-  public void fixedRender() {
-
-  }
-
-  @Override
-  public void dispose() {
-
   }
 }
 ```
