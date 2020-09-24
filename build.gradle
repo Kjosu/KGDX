@@ -1,4 +1,6 @@
 buildscript {
+  version = '1.9.6'
+  ext.appName = 'KGDX'
   repositories {
     mavenLocal()
     mavenCentral()
@@ -7,6 +9,8 @@ buildscript {
     maven { url 'http://oss.sonatype.org/content/repositories/snapshots/' }
   }
   dependencies {
+    classpath "com.badlogicgames.gdx:gdx:$gdxVersion"
+    classpath "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
     classpath "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
   }
 }
@@ -14,22 +18,8 @@ buildscript {
 allprojects {
   apply plugin: 'eclipse'
   apply plugin: 'idea'
-}
-
-configure(subprojects) {
   apply plugin: 'java'
   sourceCompatibility = 1.8
-}
-
-subprojects {
-  version = '0.0.1-SNAPSHOT'
-  ext.appName = 'KGDX'
-  repositories {
-    mavenLocal()
-    mavenCentral()
-    jcenter()
-    maven { url 'http://oss.sonatype.org/content/repositories/snapshots/' }
-  }
 }
 
 // Clearing Eclipse project data in root folder:
@@ -37,4 +27,18 @@ tasks.eclipse.doLast {
   delete '.project'
   delete '.classpath'
   delete '.settings/'
+}
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+  jcenter()
+  google()
+  maven { url 'http://oss.sonatype.org/content/repositories/snapshots/' }
+}
+
+dependencies {
+  compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+  compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+  compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
 }
