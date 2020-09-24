@@ -1,4 +1,4 @@
 dependencies {
-  implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:1.9.6"
-  implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+  classpath "com.badlogicgames.gdx:gdx-backend-lwjgl3:1.9.6"
+  classpath "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 }
