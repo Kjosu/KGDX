@@ -1,5 +1,1 @@
-buildTypes {
-    release {}
-    debug{}
-    innerTest{}
-}
+
