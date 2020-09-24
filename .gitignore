@@ -2,9 +2,6 @@
 .gradle
 gradle-app.setting
 build/
-gradle/
-gradlew
-gradlew.bat
 
 ## Java:
 *.class
