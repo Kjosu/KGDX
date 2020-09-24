@@ -1,0 +1,8 @@
+buildTypes {
+        release {
+            profile {
+                matchingFallbacks = ['debug', 'release']
+            }
+            signingConfig signingConfigs.release
+        }
+    }
