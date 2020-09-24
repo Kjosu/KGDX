@@ -1,7 +1,1 @@
-buildTypes {
-        release {
-            profile {
-                matchingFallbacks = ['debug', 'release']
-            }
-        }
-    }
+
