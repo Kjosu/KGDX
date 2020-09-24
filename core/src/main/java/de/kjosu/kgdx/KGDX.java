@@ -162,7 +162,7 @@ public class KGDX {
 		if (!loadFromCache || !screens.containsKey(screenClass)) {
 			try {
 				nextScreen = screenClass.getConstructor().newInstance();
-				screens.put(screenClass, nextScreen);
+				cacheScreen(nextScreen);
 			} catch (ReflectiveOperationException e) {
 				logger.error(KGDX.class.getSimpleName(), String.format("Failed creating screen: %s", screenClass), e);
 				return;
@@ -184,13 +184,25 @@ public class KGDX {
 		}
 
 		if (saveToCache) {
-			screens.put(screen.getClass(), screen);
+			cacheScreen(screen);
 		}
 
 		handleScreenSwitch(screen);
 	}
 
+	private static void cacheScreen(KGDXScreen screen) {
+		KGDXScreen lastScreen = screens.put(screen.getClass(), screen);
+
+		if (lastScreen != null) {
+			lastScreen.dispose();
+		}
+	}
+
 	private static void handleScreenSwitch(KGDXScreen nextScreen) {
+		if (activeScreen == nextScreen) {
+			return;
+		}
+
 		if (activeScreen != null) {
 			inputMultiplexer.removeProcessor(activeScreen);
 			activeScreen.hide();
