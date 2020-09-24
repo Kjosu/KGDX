@@ -1,4 +1,1 @@
-dependencies {
-  classpath "com.badlogicgames.gdx:gdx-backend-lwjgl3:1.9.6"
-  classpath "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-}
+apply plugin: 'java'
