@@ -1,4 +1,4 @@
-project {
-	group = 'de.kjosu.kgdx'
-	version = '1.9.6'
+dependencies {
+  compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:1.9.6"
+  compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 }
