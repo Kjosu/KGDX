@@ -1,1 +1,4 @@
-
+project {
+	group = 'de.kjosu.kgdx'
+	version = '1.9.6'
+}
