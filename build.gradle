@@ -1,5 +1,4 @@
 allprojects {
 	group = 'de.kjosu.kgdx'
 	version = '0.1'
-	sourceCompatibility = 11
 }
