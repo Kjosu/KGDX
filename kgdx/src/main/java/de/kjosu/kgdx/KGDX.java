@@ -155,13 +155,14 @@ public class KGDX {
 	 * Creates a new instance or loads a cached version of the given screens class.<br/>
 	 * If no cached instance was found a new one will be created.<br/>
 	 * Whenever a new screen instance is created by this method it will automatically overwrite the currently cached screen with the same class.<br/>
+	 * The old screen will be disposed.<br/>
 	 *
 	 * @exception
 	 *
 	 * @param screenClass class of the screen that should be changed to
 	 * @param loadFromCache if true load a screen from cache. if false or no screen is cached, create a new instance
 	 */
-	public static void switchScreen(Class<? extends KGDXScreen> screenClass, boolean loadFromCache) {
+	public static void switchScreen(Class<? extends KGDXScreen> screenClass, boolean loadFromCache, boolean saveToCache) {
 		if (screenClass == null) {
 			throw new IllegalArgumentException("Screen class can't be null");
 		}
@@ -170,7 +171,10 @@ public class KGDX {
 		if (!loadFromCache || !screens.containsKey(screenClass)) {
 			try {
 				nextScreen = screenClass.getConstructor().newInstance();
-				cacheScreen(nextScreen);
+
+				if (saveToCache) {
+					cacheScreen(nextScreen);
+				}
 			} catch (ReflectiveOperationException e) {
 				logger.error(KGDX.class.getSimpleName(), String.format("Failed creating screen: %s", screenClass), e);
 				return;
@@ -214,6 +218,10 @@ public class KGDX {
 		if (activeScreen != null) {
 			inputMultiplexer.removeProcessor(activeScreen);
 			activeScreen.hide();
+
+			if (!screens.containsKey(activeScreen.getClass())) {
+				activeScreen.dispose();
+			}
 		}
 
 		activeScreen = nextScreen;
@@ -253,5 +261,6 @@ public class KGDX {
 
 		screens.clear();
 		activeScreen = null;
+		assets.dispose();
 	}
 }
