@@ -1,6 +1,7 @@
 package de.kjosu.kgdx;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.backends.lwjgl3.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.GL30;
@@ -96,6 +97,12 @@ public class KGDX {
 	 * Use to your heart's desire.
 	 */
 	public static InputMultiplexer inputMultiplexer;
+	/**
+	 * Just a global {@link AssetManager} instance.<br/>
+	 * <br/>
+	 * Use to your heart's desire.
+	 */
+	public static AssetManager assets;
 
 	/**
 	 * Color variables used for screen clearing.
@@ -134,6 +141,7 @@ public class KGDX {
 		app.setApplicationLogger(logger = new KGDXLogger());
 		app.setLogLevel(Lwjgl3Application.LOG_DEBUG);
 		input.setInputProcessor(inputMultiplexer = new InputMultiplexer());
+		assets = new AssetManager();
 
 		setGlClearColor(0f, 0f, 0f, 1f);
 		setGlClearMask(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
