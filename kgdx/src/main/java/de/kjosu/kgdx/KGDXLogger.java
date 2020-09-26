@@ -119,7 +119,7 @@ public class KGDXLogger implements ApplicationLogger {
 			.append(" - ").append(message);
 
 		String stackTrace = getStackTrace(exception);
-		if (KGDXUtils.isNullOrEmpty(stackTrace)) {
+		if (!KGDXUtils.isNullOrEmpty(stackTrace)) {
 			output.append("\r\n").append(exception);
 		}
 
