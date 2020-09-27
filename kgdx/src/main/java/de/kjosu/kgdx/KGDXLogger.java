@@ -123,7 +123,7 @@ public class KGDXLogger implements ApplicationLogger {
 			output.append("\r\n").append(exception);
 		}
 
-		return output.toString();
+		return output.append("\r\n").toString();
 	}
 
 	private String getFormattedDate(DateFormat format) {
