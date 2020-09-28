@@ -5,6 +5,9 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.backends.lwjgl3.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +16,7 @@ public class KGDX {
 
 	/**
 	 * Map containing all cached screens mapped to its class.<br/>
-	 * Used by {@link KGDX#switchScreen(KGDXScreen, boolean)} and {@link KGDX#switchScreen(Class, boolean)}.
+	 * Used by {@link KGDX#switchScreen(KGDXScreen, boolean)} and {@link KGDX#switchScreen(Class, boolean, boolean)}.
 	 */
 	private static final Map<Class<? extends KGDXScreen>, KGDXScreen> screens = new HashMap<>();
 
@@ -117,6 +120,10 @@ public class KGDX {
 	 * @see GL20#glClear(int)
 	 */
 	private static int glClearMask;
+
+	private static SpriteBatch spriteBatch;
+	private static ShapeRenderer shape;
+	private static ModelBatch modelBatch;
 
 	private KGDX() {
 
@@ -254,9 +261,45 @@ public class KGDX {
 		glClearMask |= mask;
 	}
 
+	public static SpriteBatch spriteBatch() {
+		if (spriteBatch == null) {
+			spriteBatch = new SpriteBatch();
+		}
+
+		return spriteBatch;
+	}
+
+	public static ShapeRenderer shapeRenderer() {
+		if (shape == null) {
+			shape = new ShapeRenderer();
+		}
+
+		return shape;
+	}
+
+	public static ModelBatch modelBatch() {
+		if (modelBatch == null) {
+			modelBatch = new ModelBatch();
+		}
+
+		return modelBatch;
+	}
+
 	static void dispose() {
 		for (KGDXScreen screen : screens.values()) {
 			screen.dispose();
+		}
+
+		if (spriteBatch != null) {
+			spriteBatch.dispose();
+		}
+
+		if (shape != null) {
+			shape.dispose();
+		}
+
+		if (modelBatch != null) {
+			modelBatch.dispose();
 		}
 
 		screens.clear();
