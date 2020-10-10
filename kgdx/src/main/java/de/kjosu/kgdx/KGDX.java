@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Clipboard;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class KGDX {
 	 * Reference to the applications {@link Lwjgl3Graphics} instance.
 	 * @see Gdx#graphics
 	 */
-	public static Lwjgl3Graphics graphics;
+	public static Graphics graphics;
 	/**
 	 * Reference to the applications {@link Audio} instance.
 	 * @see Gdx#audio
@@ -44,27 +45,27 @@ public class KGDX {
 	 * Reference to the applications {@link Lwjgl3Input} instance.
 	 * @see Gdx#input
 	 */
-	public static Lwjgl3Input input;
+	public static Input input;
 	/**
 	 * Reference to the applications {@link Lwjgl3Files} instance.
 	 * @see Gdx#files
 	 */
-	public static Lwjgl3Files files;
+	public static Files files;
 	/**
 	 * Reference to the applications {@link Lwjgl3Net} instance.
 	 * @see Gdx#net
 	 */
-	public static Lwjgl3Net net;
+	public static Net net;
 	/**
 	 * Reference to the applications {@link Lwjgl3Clipboard} instance.
 	 */
-	public static Lwjgl3Clipboard clipboard;
+	public static Clipboard clipboard;
 	/**
 	 * Just a global {@link Lwjgl3Preferences} instance.<br/>
 	 * <br/>
 	 * Use to your heart's desire.
 	 */
-	public static Lwjgl3Preferences preferences;
+	public static Preferences preferences;
 
 	/**
 	 * @see Gdx#gl
@@ -133,13 +134,13 @@ public class KGDX {
 		KGDX.main = main;
 
 		app = Gdx.app;
-		graphics = (Lwjgl3Graphics) Gdx.graphics;
+		graphics = Gdx.graphics;
 		audio = Gdx.audio;
-		input = (Lwjgl3Input) Gdx.input;
-		files = (Lwjgl3Files) Gdx.files;
-		net = (Lwjgl3Net) Gdx.net;
-		clipboard = (Lwjgl3Clipboard) app.getClipboard();
-		preferences = (Lwjgl3Preferences) app.getPreferences("app");
+		input = Gdx.input;
+		files = Gdx.files;
+		net = Gdx.net;
+		clipboard = app.getClipboard();
+		preferences = app.getPreferences("app");
 
 		gl = Gdx.gl;
 		gl20 = Gdx.gl20;
