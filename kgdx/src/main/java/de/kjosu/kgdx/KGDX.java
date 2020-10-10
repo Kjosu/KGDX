@@ -26,10 +26,10 @@ public class KGDX {
 	static KGDXScreen activeScreen;
 
 	/**
-	 * Reference to the current {@link Lwjgl3Application} instance.
+	 * Reference to the current {@link Application} instance.
 	 * @see Gdx#app
 	 */
-	public static Lwjgl3Application app;
+	public static Application app;
 	/**
 	 * Reference to the applications {@link Lwjgl3Graphics} instance.
 	 * @see Gdx#graphics
@@ -132,7 +132,7 @@ public class KGDX {
 	static void init(KGDXApplication main) {
 		KGDX.main = main;
 
-		app = (Lwjgl3Application) Gdx.app;
+		app = Gdx.app;
 		graphics = (Lwjgl3Graphics) Gdx.graphics;
 		audio = Gdx.audio;
 		input = (Lwjgl3Input) Gdx.input;
