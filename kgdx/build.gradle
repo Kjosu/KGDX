@@ -1,14 +1,14 @@
 apply plugin: 'java-library'
 
 repositories {
-  mavenLocal()
-  mavenCentral()
-  jcenter()
-  google()
-  maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+	mavenLocal()
+	mavenCentral()
+	jcenter()
+	google()
+	maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
 
 dependencies {
-  implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
-  implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+	api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+	api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 }
