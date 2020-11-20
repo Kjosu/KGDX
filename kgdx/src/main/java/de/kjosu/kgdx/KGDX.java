@@ -233,8 +233,10 @@ public class KGDX {
 		}
 
 		activeScreen = nextScreen;
-		activeScreen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
 		activeScreen.show();
+		activeScreen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
 		inputMultiplexer.addProcessor(activeScreen);
 	}
 
