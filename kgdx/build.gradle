@@ -16,3 +16,13 @@ dependencies {
 	api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
 	api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 }
+
+project.afterEvaluate {
+	publishing {
+		publications {
+			release(MavenPublication) {
+				from components.java
+			}
+		}
+	}
+}
