@@ -1,2 +1,2 @@
 install:
-  ./gradlew :kgdx:build
+  gradlew :kgdx:build :kgdx:publishToMavenLocal
